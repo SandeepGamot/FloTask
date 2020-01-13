@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FloTask</string>
+    <string name="placeholder_city">Mumbai</string>
+</resources>
