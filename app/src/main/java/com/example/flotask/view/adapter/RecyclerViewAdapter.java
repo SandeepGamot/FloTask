@@ -9,17 +9,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flotask.R;
-import com.example.flotask.model.City;
+import com.example.flotask.services.model.City;
+import com.example.flotask.viewmodel.WeatherViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private List<City> cityList;
+    private List<City> cities = new ArrayList<>();
     private RecyclerViewElementClickListener elementClickListener;
+    private WeatherViewModel viewModel;
 
-    public RecyclerViewAdapter(List<City> cityList, RecyclerViewElementClickListener elementClickListener) {
-        this.cityList = cityList;
+
+    public RecyclerViewAdapter(List<City> cities, RecyclerViewElementClickListener elementClickListener, WeatherViewModel viewModel) {
+        this.cities = cities;
         this.elementClickListener = elementClickListener;
+        this.viewModel = viewModel;
     }
 
     @NonNull
@@ -32,14 +37,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.city.setText(cityList.get(position)
-                                    .getCity());
+        holder.city.setText(cities.get(position)
+                                    .getName());
     }
 
     @Override
     public int getItemCount() {
-        return cityList.size();
+        return cities.size();
     }
+
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView city;
@@ -54,12 +60,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View v) {
-            elementClickListener.onRecyclerViewElementClick(getAdapterPosition());
+            elementClickListener.onRecyclerViewElementClick(getAdapterPosition() , viewModel);
         }
 
     }
 
     public interface RecyclerViewElementClickListener {
-        void onRecyclerViewElementClick(int position);
+        void onRecyclerViewElementClick(int position , WeatherViewModel viewModel);
     }
 }
