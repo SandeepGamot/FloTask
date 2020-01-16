@@ -15,20 +15,33 @@ import com.example.flotask.viewmodel.WeatherViewModel;
 public class WeatherDetails extends AppCompatActivity {
 
     private WeatherViewModel viewModel;
-    private TextView textView;
+    private TextView name,temp,pressure,humidity,wind;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_details);
 
-        textView = findViewById(R.id.weather_info_text);
+        name = findViewById(R.id.details_city_name);
+        temp = findViewById(R.id.details_temperature);
+        pressure= findViewById(R.id.details_pressure);
+        humidity = findViewById(R.id.details_humidity);
+        wind = findViewById(R.id.details_wind_speed);
         viewModel = ViewModelProviders.of(this).get(WeatherViewModel.class);
+
+        String t = getResources().getString(R.string.temperature);
+        String p = getResources().getString(R.string.pressure);
+        String h = getResources().getString(R.string.humidity);
+        String w = getResources().getString(R.string.wind_speed);
 
         viewModel.getWeather(getIntent().getStringExtra("city")).observe(this, new Observer<WeatherResult>() {
             @Override
             public void onChanged(WeatherResult weatherResult) {
-                    textView.setText(weatherResult.toString());
+                    name.setText(weatherResult.getName());
+                    temp.setText(t.replace("%s",weatherResult.getMain().getTemp()));
+                    pressure.setText(p.replace("%s",weatherResult.getMain().getPressure()));
+                    humidity.setText(h.replace("%s",weatherResult.getMain().getHumidity()));
+                    wind.setText(w.replace("%s",weatherResult.getWind().getSpeed()));
             }
         });
     }

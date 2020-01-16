@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">FloTask</string>
     <string name="placeholder_text"> Loading… </string>
-    <string name="api_key">2abcb389368f079ecc5b790b5485b268</string>
     <string name="cities">London Delhi Mumbai Pune Rajkot Jaipur Paris Singapore Sydney Tokyo Zurich</string>
+    <string name="temperature">Temperature: %s ℃</string>
+    <string name="pressure">Pressure: %s hPa</string>
+    <string name="humidity">Humidity: %s %</string>
+    <string name="wind_speed">Wind: %s m/sec</string>
 </resources>

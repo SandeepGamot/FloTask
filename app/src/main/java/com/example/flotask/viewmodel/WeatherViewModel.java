@@ -1,7 +1,6 @@
 package com.example.flotask.viewmodel;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.flotask.services.model.WeatherResult;
 import com.example.flotask.services.repository.WeatherRepository;
