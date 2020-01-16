@@ -10,7 +10,6 @@ import com.example.flotask.services.model.WeatherResult;
 import com.example.flotask.services.model.Wind;
 
 
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,6 +23,8 @@ public class WeatherRepository {
     private static final String WEATHER_API_URL = "https://api.openweathermap.org/";
     private static WeatherRepository weatherRepository;
     private APIService apiService;
+    MutableLiveData weatherResult;
+
 
     private WeatherRepository() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(WEATHER_API_URL)
@@ -40,8 +41,6 @@ public class WeatherRepository {
     }
 
     public MutableLiveData<WeatherResult> getWeatherData(String city, String appid) {
-        MutableLiveData<WeatherResult> data = new MutableLiveData<>();
-
         apiService.getWeatherData(city, appid)
                   .enqueue(
                           new Callback<WeatherResult>() {
@@ -51,28 +50,17 @@ public class WeatherRepository {
                                   if (response.isSuccessful()) {
                                       Log.i(TAG, "onResponse: " + response.body()
                                                                           .toString());
-                                      WeatherResult body = response.body();
-                                      WeatherResult w = new WeatherResult.Builder().withName(body.getName())
-                                                                                   .withWind(new Wind(body.getWind()
-                                                                                                          .getSpeed()))
-                                                                                   .withMain(new Main(body.getMain()
-                                                                                                          .getHumidity(),
-                                                                                           body.getMain()
-                                                                                               .getPressure(),
-                                                                                           body.getMain()
-                                                                                               .getTemp()))
-                                                                                   .build();
-                                      data.setValue(w);
+                                      weatherResult.setValue(response.body());
                                   }
                               }
 
                               @Override
                               public void onFailure(Call<WeatherResult> call, Throwable t) {
                                   t.printStackTrace();
-                                  Log.i(TAG, "onFailure: " + t.getMessage());
+                                  Log.d(TAG, "onFailure: " + t.getMessage());
                               }
                           });
-        Log.i(TAG, "getWeatherData: " + data.toString());
-        return data;
+
+        return weatherResult;
     }
 }

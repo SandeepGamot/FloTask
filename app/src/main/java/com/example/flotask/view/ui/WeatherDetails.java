@@ -13,19 +13,26 @@ import com.example.flotask.services.model.WeatherResult;
 import com.example.flotask.viewmodel.WeatherViewModel;
 
 public class WeatherDetails extends AppCompatActivity {
+
+    WeatherViewModel viewModel;
+    TextView textView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_details);
 
-        TextView textView = findViewById(R.id.weather_info_text);
-        WeatherViewModel viewModel = ViewModelProviders.of(this).get(WeatherViewModel.class);
+        textView = findViewById(R.id.weather_info_text);
+        viewModel = ViewModelProviders.of(this).get(WeatherViewModel.class);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         viewModel.getCityDetails(getIntent().getStringExtra("city")).observe(this, new Observer<WeatherResult>() {
             @Override
             public void onChanged(WeatherResult weatherResult) {
                 textView.setText(weatherResult.toString());
             }
         });
-
     }
 }

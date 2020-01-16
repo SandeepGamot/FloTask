@@ -20,7 +20,7 @@ public class WeatherViewModel extends ViewModel
     private void getWeather(String city)
     {
         data.setValue(WeatherRepository.getInstance().getWeatherData(city,APP_ID).getValue());
-        Log.i(TAG, "WeatherViewModel: "+(data.toString()));
+        Log.d(TAG, "WeatherViewModel: "+(data.toString()));
     }
 
     public LiveData<WeatherResult> getCityDetails(String city)
