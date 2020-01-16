@@ -1,15 +1,8 @@
 package com.example.flotask.services.repository;
 
 import android.util.Log;
-
-
 import androidx.lifecycle.MutableLiveData;
-
-import com.example.flotask.services.model.Main;
 import com.example.flotask.services.model.WeatherResult;
-import com.example.flotask.services.model.Wind;
-
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,8 +16,6 @@ public class WeatherRepository {
     private static final String WEATHER_API_URL = "https://api.openweathermap.org/";
     private static WeatherRepository weatherRepository;
     private APIService apiService;
-    MutableLiveData weatherResult;
-
 
     private WeatherRepository() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(WEATHER_API_URL)
@@ -41,6 +32,7 @@ public class WeatherRepository {
     }
 
     public MutableLiveData<WeatherResult> getWeatherData(String city, String appid) {
+        MutableLiveData<WeatherResult> weatherResult = new MutableLiveData<>();
         apiService.getWeatherData(city, appid)
                   .enqueue(
                           new Callback<WeatherResult>() {

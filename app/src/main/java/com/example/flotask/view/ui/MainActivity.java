@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     @Override
     public void onRecyclerViewElementClick(int position, WeatherViewModel viewModel) {
-        startActivity(new Intent(MainActivity.this, WeatherDetails.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("city",cities.get(position).getName().toString()));
+        viewModel.getWeather(cities.get(position).getName());
+        startActivity(new Intent(MainActivity.this, WeatherDetails.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

@@ -28,7 +28,7 @@ public class WeatherDetails extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        viewModel.getCityDetails(getIntent().getStringExtra("city")).observe(this, new Observer<WeatherResult>() {
+        viewModel.getCityDetails().observe(this, new Observer<WeatherResult>() {
             @Override
             public void onChanged(WeatherResult weatherResult) {
                 textView.setText(weatherResult.toString());
@@ -36,3 +36,4 @@ public class WeatherDetails extends AppCompatActivity {
         });
     }
 }
+
