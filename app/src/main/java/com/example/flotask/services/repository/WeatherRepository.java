@@ -1,6 +1,8 @@
 package com.example.flotask.services.repository;
 
 import android.util.Log;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.flotask.services.model.WeatherResult;
 import retrofit2.Call;
@@ -31,7 +33,7 @@ public class WeatherRepository {
         return weatherRepository;
     }
 
-    public MutableLiveData<WeatherResult> getWeatherData(String city, String appid) {
+    public LiveData<WeatherResult> getWeatherData(String city, String appid) {
         MutableLiveData<WeatherResult> weatherResult = new MutableLiveData<>();
         apiService.getWeatherData(city, appid)
                   .enqueue(

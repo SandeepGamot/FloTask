@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.example.flotask.R;
 import com.example.flotask.services.model.City;
 import com.example.flotask.view.adapter.RecyclerViewAdapter;
@@ -50,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     @Override
     public void onRecyclerViewElementClick(int position, WeatherViewModel viewModel) {
-        viewModel.getWeather(cities.get(position).getName());
-        startActivity(new Intent(MainActivity.this, WeatherDetails.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        String city = cities.get(position).getName();
+        viewModel.getWeather(city);
+        startActivity(new Intent(MainActivity.this, WeatherDetails.class).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT).putExtra("city",city));
     }
 }
